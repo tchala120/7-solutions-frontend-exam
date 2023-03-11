@@ -18,14 +18,16 @@ const Header = () => {
       <div className="inner-header-container">
         <Logo />
 
-        <Badge count={totalItemsInCart}>
-          <FontAwesomeIcon
-            icon={faCartShopping}
-            fontSize={20}
-            cursor="pointer"
-            onClick={() => open(true)}
-          />
-        </Badge>
+        <div
+          style={{
+            cursor: 'pointer',
+          }}
+          onClick={() => open(true)}
+        >
+          <Badge count={totalItemsInCart}>
+            <FontAwesomeIcon icon={faCartShopping} fontSize={20} />
+          </Badge>
+        </div>
       </div>
     </HeaderContainer>
   )
