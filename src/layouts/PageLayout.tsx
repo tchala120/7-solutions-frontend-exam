@@ -1,9 +1,10 @@
 import { Layout } from 'antd'
 import { Outlet } from 'react-router-dom'
+import styled from 'styled-components'
 
 import Footer from 'src/components/Footer'
 import Header from 'src/components/Header'
-import styled from 'styled-components'
+import { BoardcastCartDisplay } from 'src/components/CartDisplay'
 
 const PageLayout = () => {
   return (
@@ -19,6 +20,8 @@ const PageLayout = () => {
         <div className="inner-content-container">
           <Outlet />
         </div>
+
+        <BoardcastCartDisplay />
       </Content>
 
       <Footer />
