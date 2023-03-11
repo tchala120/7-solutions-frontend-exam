@@ -2,7 +2,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_VERSION: string
-  // more env variables...
+  readonly VITE_STORE_VERSION: string
 }
 
 interface ImportMeta {
