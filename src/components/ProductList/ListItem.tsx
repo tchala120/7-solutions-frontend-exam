@@ -1,7 +1,7 @@
-import { Col, Row } from 'antd'
+import { Col } from 'antd'
 
 import ProductItem from './Item'
-import NotFound from './NotFound'
+import ProductNotFound from './NotFound'
 
 import type { Product } from 'src/react-query/types'
 
@@ -13,7 +13,7 @@ const ProductListItem = ({ listProducts }: ProductListItemProps) => {
   return (
     <>
       {listProducts?.length === 0 ? (
-        <NotFound>Product not found</NotFound>
+        <ProductNotFound>Product not found</ProductNotFound>
       ) : (
         listProducts?.map((product) => (
           <Col key={product.id} md={12} xs={24}>
