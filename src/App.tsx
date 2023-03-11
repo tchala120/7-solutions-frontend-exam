@@ -1,5 +1,13 @@
+import { ConfigProvider } from 'antd'
+
+import PageRouter from './setup/PageRouter'
+
 const App = () => {
-  return <h1>This is App</h1>
+  return (
+    <ConfigProvider componentSize="large">
+      <PageRouter />
+    </ConfigProvider>
+  )
 }
 
 export default App
