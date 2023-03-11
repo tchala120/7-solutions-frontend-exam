@@ -1,8 +1,10 @@
-import { Button, Col, Rate, Row, Space, Tag } from 'antd'
+import { Button, Col, message, Rate, Row, Space, Tag } from 'antd'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { sentenceCase } from 'change-case'
+
+import useCartContext from 'src/contexts/useCartContext'
 
 import { moneyFormat } from 'src/helpers/formatter'
 
@@ -13,6 +15,8 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ data }: ProductItemProps) => {
+  const { addNewItem } = useCartContext()
+
   return (
     <ProductItemContainer>
       <Row gutter={[16, 16]} align="top">
@@ -51,9 +55,21 @@ const ProductItem = ({ data }: ProductItemProps) => {
       </Row>
 
       <AddToCartContainer>
-        <Button shape="circle" type="primary" danger>
-          <FontAwesomeIcon icon={faPlus} />
-        </Button>
+        <Space>
+          <Button
+            size="middle"
+            shape="circle"
+            type="primary"
+            danger
+            onClick={() => {
+              addNewItem(data)
+
+              message.success(`${data.title} added to cart`)
+            }}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </Button>
+        </Space>
       </AddToCartContainer>
     </ProductItemContainer>
   )
