@@ -1,13 +1,31 @@
-import { Layout } from 'antd'
+import { Badge, Layout } from 'antd'
 import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 import Logo from 'src/components/Logo'
+import { useCartDisplay } from 'src/components/CartDisplay'
+
+import useCartContext from 'src/contexts/useCartContext'
 
 const Header = () => {
+  const { totalItemsInCart } = useCartContext()
+
+  const { open } = useCartDisplay()
+
   return (
     <HeaderContainer>
       <div className="inner-header-container">
         <Logo />
+
+        <Badge count={totalItemsInCart}>
+          <FontAwesomeIcon
+            icon={faCartShopping}
+            fontSize={20}
+            cursor="pointer"
+            onClick={() => open(true)}
+          />
+        </Badge>
       </div>
     </HeaderContainer>
   )
