@@ -16,7 +16,9 @@ const PageLayout = () => {
       <Header />
 
       <Content>
-        <Outlet />
+        <div className="inner-content-container">
+          <Outlet />
+        </div>
       </Content>
 
       <Footer />
@@ -30,6 +32,12 @@ const Content = styled(Layout.Content)`
   --padding-horizontal: 50px;
 
   padding: 24px var(--padding-horizontal);
+
+  .inner-content-container {
+    max-width: 768px;
+    width: 100%;
+    margin: 0 auto;
+  }
 
   @media screen and (max-width: 768px) {
     --padding-horizontal: 24px;
