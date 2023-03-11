@@ -41,3 +41,7 @@ export const queryClient = new QueryClient({
     },
   },
 })
+
+export const pagination = {
+  limit: 10,
+}
