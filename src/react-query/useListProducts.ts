@@ -1,8 +1,8 @@
 import { AxiosError } from 'axios'
 
-import { useQuery, type UseQueryResult } from 'react-query'
+import { useQuery } from 'react-query'
 
-import { Product, ReactQueryUseQueryHook } from 'src/react-query/types'
+import { Product, type ReactQueryUseQueryHook } from 'src/react-query/types'
 
 interface ListProductsResponse {
   products: Product[]
