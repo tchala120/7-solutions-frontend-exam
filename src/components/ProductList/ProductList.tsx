@@ -6,7 +6,7 @@ import ProductListControl from './Control'
 import ProductListItem from './ListItem'
 import SkeletonLoading from './SkeletonLoading'
 
-import useListProducts from 'src/react-query/useListProducts'
+import useListProductsQuery from 'src/react-query/useListProductsQuery'
 
 import type { Product } from 'src/react-query/types'
 
@@ -68,7 +68,7 @@ const useProductList = () => {
 
   const [listProducts, setListProducts] = useState<Product[]>()
 
-  const listProductsQuery = useListProducts({
+  const listProductsQuery = useListProductsQuery({
     variables: {
       search: searchKeyword,
       limit: listProductLimit,
