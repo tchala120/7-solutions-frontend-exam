@@ -17,21 +17,21 @@ interface ListProductsVariables {
   skip?: number
 }
 
-interface ListProductsQueryOptions
-  extends UseQueryOptions<ListProductsResponse, AxiosError> {
-  variables?: ListProductsVariables
-}
-
-interface ListProductsResponse {
+interface ListProductsQueryResponse {
   limit: number
   total: number
   skip: number
   products: Product[]
 }
 
-const useListProducts = (
+interface ListProductsQueryOptions
+  extends UseQueryOptions<ListProductsQueryResponse, AxiosError> {
+  variables?: ListProductsVariables
+}
+
+const useListProductsQuery = (
   options?: ListProductsQueryOptions
-): UseQueryResult<ListProductsResponse, AxiosError> => {
+): UseQueryResult<ListProductsQueryResponse, AxiosError> => {
   const search = options?.variables?.search
   const limit = options?.variables?.limit
   const skip = options?.variables?.skip
@@ -50,7 +50,7 @@ const useListProducts = (
       ? `/products?${listItemQueryString}`
       : `/products/search?${listItemSearchQueryString}`
 
-  return useQuery<ListProductsResponse, AxiosError>(path, {
+  return useQuery<ListProductsQueryResponse, AxiosError>(path, {
     onError(error) {
       console.log('Error from list products query', error)
     },
@@ -58,4 +58,4 @@ const useListProducts = (
   })
 }
 
-export default useListProducts
+export default useListProductsQuery

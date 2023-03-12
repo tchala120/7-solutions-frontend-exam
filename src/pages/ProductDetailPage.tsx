@@ -1,5 +1,7 @@
+import ProductDetail from 'src/components/ProductDetail'
+
 const ProductDetailPage = () => {
-  return <></>
+  return <ProductDetail />
 }
 
 export default ProductDetailPage
