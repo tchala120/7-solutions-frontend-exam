@@ -1,13 +1,15 @@
-import { Button, Col, message, Rate, Row, Space, Tag } from 'antd'
+import { Button, Col, message, Row, Space, Tag } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { sentenceCase } from 'change-case'
 
+import PriceInfo from 'src/components/PriceInfo'
+import Rating from 'src/components/Rating'
+
 import useCartContext from 'src/contexts/useCartContext'
 
-import { moneyFormat } from 'src/helpers/formatter'
 import { routeTo } from 'src/helpers/utils'
 
 import { paths } from 'src/setup/PageRouter/routes'
@@ -33,29 +35,17 @@ const ProductItem = ({ data }: ProductItemProps) => {
         <Col span={16}>
           <ProductInformationContainer>
             <strong>{data.title}</strong>
+
             <div>
               <Tag color="blue">{sentenceCase(data.category)}</Tag>
             </div>
-            <Space>
-              <Rate allowHalf disabled value={data.rating} />{' '}
-              <span
-                style={{
-                  fontSize: 12,
-                  color: '#999',
-                }}
-              >
-                ({data.rating})
-              </span>
-            </Space>
 
-            <Space align="end">
-              <strong>
-                {moneyFormat(data.price, {
-                  prefix: '$',
-                })}
-              </strong>
-              <PercentOf>{data.discountPercentage}% off</PercentOf>
-            </Space>
+            <Rating value={data.rating} />
+
+            <PriceInfo
+              price={data.price}
+              discountPercentage={data.discountPercentage}
+            />
           </ProductInformationContainer>
         </Col>
       </Row>
@@ -119,11 +109,6 @@ const ProductInformationContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-`
-
-const PercentOf = styled.strong`
-  color: #00aa36;
-  font-size: 12px;
 `
 
 const AddToCartContainer = styled.div`
