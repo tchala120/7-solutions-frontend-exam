@@ -1,4 +1,4 @@
-import { Button, Col, message, Row, Space, Tag } from 'antd'
+import { Button, Col, notification, Row, Space, Tag } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,6 +7,7 @@ import { sentenceCase } from 'change-case'
 
 import PriceInfo from 'src/components/PriceInfo'
 import Rating from 'src/components/Rating'
+import { useCartDisplay } from 'src/components/CartDisplay'
 
 import useCartContext from 'src/contexts/useCartContext'
 
@@ -21,6 +22,8 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ data }: ProductItemProps) => {
+  const { open } = useCartDisplay()
+
   const { addNewItem } = useCartContext()
 
   const navigate = useNavigate()
@@ -72,7 +75,19 @@ const ProductItem = ({ data }: ProductItemProps) => {
             onClick={() => {
               addNewItem(data)
 
-              message.success(`${data.title} added to cart`)
+              notification.open({
+                message: `Added ${data.title} to cart`,
+                duration: 3,
+                btn: (
+                  <Button
+                    type="primary"
+                    size="small"
+                    onClick={() => open(true)}
+                  >
+                    Open cart
+                  </Button>
+                ),
+              })
             }}
           >
             <FontAwesomeIcon icon={faPlus} />

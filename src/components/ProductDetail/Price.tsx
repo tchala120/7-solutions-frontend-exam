@@ -1,9 +1,10 @@
-import { Button, Col, Row } from 'antd'
+import { Button, Col, notification, Row } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
 import PriceInfo from 'src/components/PriceInfo'
 import ContentBlock from 'src/components/ContentBlock'
 import DisplayValue from 'src/components/DisplayValue'
+import { useCartDisplay } from 'src/components/CartDisplay'
 
 import useCartContext from 'src/contexts/useCartContext'
 
@@ -16,6 +17,8 @@ interface ProductDetailPriceProps {
 }
 
 const ProductDetailPrice = ({ data }: ProductDetailPriceProps) => {
+  const { open } = useCartDisplay()
+
   const { addNewItem } = useCartContext()
 
   return (
@@ -38,7 +41,24 @@ const ProductDetailPrice = ({ data }: ProductDetailPriceProps) => {
           <Button
             type="primary"
             icon={<PlusOutlined />}
-            onClick={() => addNewItem(data)}
+            onClick={() => {
+              addNewItem(data)
+
+              notification.open({
+                message: `Added ${data.title} to cart`,
+                duration: 3,
+                key: 'add-new-item-notification',
+                btn: (
+                  <Button
+                    type="primary"
+                    size="small"
+                    onClick={() => open(true)}
+                  >
+                    Open cart
+                  </Button>
+                ),
+              })
+            }}
           >
             Add to cart
           </Button>
