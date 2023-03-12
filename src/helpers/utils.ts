@@ -13,3 +13,7 @@ export const routeTo = (originalPath: string, options?: RouteToOptions) => {
     ? path
     : `${path}?${queryString.stringify(options.query)}`
 }
+
+export const delay = (time: number) => {
+  return new Promise((resolve) => setTimeout(resolve, time))
+}
