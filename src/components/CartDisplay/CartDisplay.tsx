@@ -1,6 +1,11 @@
 import { Button, Drawer, type DrawerProps } from 'antd'
+import { useState } from 'react'
 
 import useCartContext from 'src/contexts/useCartContext'
+
+import { delay } from 'src/helpers/utils'
+
+import { paths } from 'src/setup/PageRouter/routes'
 
 import BillTableInfo from './BillTableInfo'
 import CartDisplayTable from './Table'
@@ -11,6 +16,10 @@ export type CartDisplayProps = Omit<DrawerProps, 'title' | 'footer'>
 
 const CartDisplay = (props: CartDisplayProps) => {
   const { open } = useCartDisplay()
+
+  const { totalSelectedItems } = useCartContext()
+
+  const [loading, setLoading] = useState(false)
 
   const onClose = () => open(false)
 
@@ -30,7 +39,24 @@ const CartDisplay = (props: CartDisplayProps) => {
             textAlign: 'right',
           }}
         >
-          <Button type="primary">Confirm Order</Button>
+          <Button
+            type="primary"
+            loading={loading}
+            disabled={totalSelectedItems === 0}
+            onClick={async () => {
+              setLoading(true)
+
+              await delay(2000)
+
+              setLoading(false)
+
+              await delay(500)
+
+              window.location.href = paths.paymentSuccess
+            }}
+          >
+            Confirm Order
+          </Button>
         </div>
       }
       destroyOnClose
