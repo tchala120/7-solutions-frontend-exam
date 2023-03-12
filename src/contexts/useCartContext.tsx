@@ -94,6 +94,11 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     setItemsInCart(updatedItems)
   }
 
+  const totalItemsInCart = useMemo(
+    () => itemsInCart.reduce((prev, current) => prev + current.quantity, 0),
+    [itemsInCart]
+  )
+
   const summaryPrice = useMemo(() => {
     const selectItemsOnly = itemsInCart.filter((item) =>
       itemIDs.includes(item.product.id)
@@ -107,7 +112,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
   const value: CartContextData = {
     itemsInCart,
-    totalItemsInCart: itemsInCart.length,
+    totalItemsInCart,
     summaryPrice,
     addNewItem,
     removeItemQuantity,
