@@ -17,11 +17,13 @@ interface ItemInCart {
 interface CartContextData {
   itemsInCart: ItemInCart[]
   totalItemsInCart: number
+  totalSelectedItems: number
   summaryPrice: number
   addNewItem: (newItem: Product) => void
   removeItemQuantity: (id: number) => void
   selectItem: (id: number[]) => void
   deleteItem: (id: number) => void
+  clearCart: VoidFunction
 }
 
 interface CartProviderProps {
@@ -94,6 +96,11 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     setItemsInCart(updatedItems)
   }
 
+  const clearCart = () => {
+    setItemsInCart([])
+    setItemIDs([])
+  }
+
   const totalItemsInCart = useMemo(
     () => itemsInCart.reduce((prev, current) => prev + current.quantity, 0),
     [itemsInCart]
@@ -113,11 +120,13 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   const value: CartContextData = {
     itemsInCart,
     totalItemsInCart,
+    totalSelectedItems: itemIDs.length,
     summaryPrice,
     addNewItem,
     removeItemQuantity,
     selectItem,
     deleteItem,
+    clearCart,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
