@@ -1,4 +1,5 @@
 import { Button, Col, message, Rate, Row, Space, Tag } from 'antd'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -7,6 +8,9 @@ import { sentenceCase } from 'change-case'
 import useCartContext from 'src/contexts/useCartContext'
 
 import { moneyFormat } from 'src/helpers/formatter'
+import { routeTo } from 'src/helpers/utils'
+
+import { paths } from 'src/setup/PageRouter/routes'
 
 import type { Product } from 'src/react-query/types'
 
@@ -16,6 +20,8 @@ interface ProductItemProps {
 
 const ProductItem = ({ data }: ProductItemProps) => {
   const { addNewItem } = useCartContext()
+
+  const navigate = useNavigate()
 
   return (
     <ProductItemContainer>
@@ -54,6 +60,18 @@ const ProductItem = ({ data }: ProductItemProps) => {
         </Col>
       </Row>
 
+      <ProductClickableContainer
+        onClick={() => {
+          navigate(
+            routeTo(paths.productDetail, {
+              params: {
+                id: data.id,
+              },
+            })
+          )
+        }}
+      />
+
       <AddToCartContainer>
         <Space>
           <Button
@@ -90,6 +108,11 @@ const ProductItemContainer = styled.div`
   border-radius: 6px;
   background: #fff;
   position: relative;
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 10px 20px #eee;
+  }
 `
 
 const ProductInformationContainer = styled.div`
@@ -107,4 +130,16 @@ const AddToCartContainer = styled.div`
   position: absolute;
   right: 12px;
   bottom: 12px;
+  z-index: 3;
+`
+
+const ProductClickableContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  opacity: 0;
+  cursor: pointer;
 `
